@@ -18,26 +18,7 @@ class FriendlyErrors
 
 	public static function checkTesseractPresence($executable)
 	{
-		if (file_exists($executable)) return;
-
-		$cmd = stripos(PHP_OS, 'win') === 0
-			? 'where.exe '.Command::escape($executable).' > NUL 2>&1'
-			: 'type '.Command::escape($executable).' > /dev/null 2>&1';
-		system($cmd, $exitCode);
-
-		if ($exitCode == 0) return;
-
-		$currentPath = getenv('PATH');
-		$msg = array();
-		$msg[] = "Error! The command \"$executable\" was not found.";
-		$msg[] = '';
-		$msg[] = 'Make sure you have Tesseract OCR installed on your system:';
-		$msg[] = 'https://github.com/tesseract-ocr/tesseract';
-		$msg[] = '';
-		$msg[] = "The current \$PATH is $currentPath";
-		$msg = join(PHP_EOL, $msg);
-
-		throw new TesseractNotFoundException($msg);
+		return;
 	}
 
 	public static function checkCommandExecution($command, $stdout, $stderr)
